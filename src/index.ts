@@ -182,8 +182,15 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 border border-clay-200 rounded-lg p-2 bg-white flex items-center justify-center">
-            <span class="text-xs font-mono text-clay-600 uppercase tracking-wider">pearfect.net</span>
+          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
+            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
+              <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <g class="stroke-white"><line x1="16" y1="12" x2="16" y2="36"></line><path d="M16 12 H26 C31 12 31 22 26 22 H16"></path></g>
+                <line x1="19" y1="27" x2="33" y2="27" stroke-width="2.2" class="stroke-zinc-500"></line>
+                <line x1="19" y1="31.5" x2="29" y2="31.5" stroke-width="2.2" class="stroke-zinc-400"></line>
+                <line x1="19" y1="36" x2="25" y2="36" stroke-width="2.2" class="stroke-zinc-300"></line>
+              </svg>
+            </div>
           </div>
         </article>
 
