@@ -82,8 +82,7 @@ export default {
   <!-- Header -->
   <header class="w-full border-b border-clay-200 py-6 bg-clay-50 sticky top-0 z-40">
     <div class="max-w-4xl mx-auto px-6 sm:px-12 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5 group">
-        <span class="flex w-7 h-7 items-center justify-center rounded bg-clay-900 text-white font-serif text-base font-bold leading-none select-none">Á</span>
+      <a href="#" class="group">
         <span class="font-serif text-xl font-medium tracking-tight text-clay-900">Ángel Peramato</span>
       </a>
       
@@ -141,11 +140,13 @@ export default {
             </div>
             
             <p class="text-clay-600 text-sm font-light leading-relaxed">
-              Plataforma web educativa para estudiantes de bachillerato en España. Permite buscar y descargar exámenes de Selectividad. Cuenta con geolocalización automática por IP para mostrar exámenes de la región del usuario directamente.
+              Plataforma web educativa para estudiantes de bachillerato en España. Permite buscar y descargar exámenes de Selectividad. Desarrollada con Drizzle ORM, cuenta con geolocalización automática por IP para mostrar exámenes de la región del usuario directamente.
             </p>
             
             <div class="flex flex-wrap gap-2 text-xs font-mono text-clay-600">
-              <span>Next.js</span>
+              <span>Next.js 16</span>
+              <span>•</span>
+              <span>Drizzle ORM</span>
               <span>•</span>
               <span>Cloudflare Workers</span>
               <span>•</span>
@@ -278,7 +279,7 @@ export default {
   <!-- Footer -->
   <footer class="w-full border-t border-clay-200 py-8 px-6 sm:px-12 bg-clay-100 text-center text-xs text-clay-600">
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 Ángel Peramato. Alojado en Cloudflare Workers.</p>
+      <p>© 2026 Ángel Peramato.</p>
       <div class="flex gap-4">
         <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="hover:underline">examenesdepau.es</a>
         <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="hover:underline">pearfect.net</a>
