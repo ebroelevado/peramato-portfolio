@@ -212,7 +212,6 @@ export default {
           </div>
           
           <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
-            <span class="text-xs text-clay-600 font-mono text-center">raidtogether.fun</span>
             <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
               <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
             </div>
