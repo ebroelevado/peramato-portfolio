@@ -16,7 +16,7 @@ export default {
   <!-- Google Fonts: Newsreader (Editorial Serif) & Inter (Clean Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;0,6..72,800;1,6..72,400&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -150,7 +150,7 @@ export default {
           </div>
           
           <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
-            <span class="font-serif text-white text-2xl font-bold tracking-tight leading-none">PAU</span>
+            <span class="font-serif text-white text-2xl font-extrabold tracking-tight leading-none">PAU</span>
           </a>
         </article>
 
