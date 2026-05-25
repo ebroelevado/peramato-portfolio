@@ -124,7 +124,7 @@ export default {
       <div class="divide-y divide-clay-200">
         
         <!-- Project 1: examenesdepau.es -->
-        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-start rounded-xl px-4 -mx-4 transition-colors">
+        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
             <div class="flex items-center justify-between">
               <h3 class="font-serif text-xl font-medium text-clay-900">
@@ -149,15 +149,13 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
-            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
-              <span class="font-serif text-white text-2xl font-bold tracking-tight">PAU</span>
-            </div>
-          </div>
+          <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
+            <span class="font-serif text-white text-2xl font-bold tracking-tight leading-none">PAU</span>
+          </a>
         </article>
 
         <!-- Project 2: pearfect.net -->
-        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-start rounded-xl px-4 -mx-4 transition-colors">
+        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
             <div class="flex items-center justify-between">
               <h3 class="font-serif text-xl font-medium text-clay-900">
@@ -184,20 +182,18 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
-            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
-              <svg viewBox="0 0 48 48" class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <g class="stroke-white"><line x1="16" y1="12" x2="16" y2="36"></line><path d="M16 12 H26 C31 12 31 22 26 22 H16"></path></g>
-                <line x1="19" y1="27" x2="33" y2="27" stroke-width="2.2" class="stroke-zinc-500"></line>
-                <line x1="19" y1="31.5" x2="29" y2="31.5" stroke-width="2.2" class="stroke-zinc-400"></line>
-                <line x1="19" y1="36" x2="25" y2="36" stroke-width="2.2" class="stroke-zinc-300"></line>
-              </svg>
-            </div>
-          </div>
+          <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
+            <svg viewBox="-2.5 0 48 48" class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <g class="stroke-white"><line x1="16" y1="12" x2="16" y2="36"></line><path d="M16 12 H26 C31 12 31 22 26 22 H16"></path></g>
+              <line x1="19" y1="27" x2="33" y2="27" stroke-width="2.2" class="stroke-zinc-500"></line>
+              <line x1="19" y1="31.5" x2="29" y2="31.5" stroke-width="2.2" class="stroke-zinc-400"></line>
+              <line x1="19" y1="36" x2="25" y2="36" stroke-width="2.2" class="stroke-zinc-300"></line>
+            </svg>
+          </a>
         </article>
 
         <!-- Project 3: raidtogether.fun -->
-        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-start rounded-xl px-4 -mx-4 transition-colors">
+        <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
             <div class="flex items-center justify-between">
               <h3 class="font-serif text-xl font-medium text-clay-900">
@@ -220,11 +216,9 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
-            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
-              <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
-            </div>
-          </div>
+          <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
+            <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
+          </a>
         </article>
 
       </div>
