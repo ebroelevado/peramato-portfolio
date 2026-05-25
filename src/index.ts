@@ -1,4 +1,4 @@
-export interface Env {}
+export interface Env { }
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -78,7 +78,7 @@ export default {
   <header class="w-full border-b border-clay-200 py-6 px-6 sm:px-12 bg-clay-50 sticky top-0 z-40">
     <div class="max-w-4xl mx-auto flex items-center justify-between">
       <a href="#" class="font-serif text-xl font-medium tracking-tight text-clay-900">
-        ángel peramato
+        Ángel Peramato
       </a>
       
       <nav class="flex items-center gap-6 text-sm text-clay-600">
@@ -211,9 +211,9 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-end md:items-stretch gap-1">
-            <span class="text-xs text-clay-600 font-mono self-end md:self-auto text-right md:text-left">raidtogether.fun</span>
-            <div class="w-full border border-clay-200 rounded-lg p-3 bg-clay-900 flex items-center justify-center mt-3">
+          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
+            <span class="text-xs text-clay-600 font-mono text-center">raidtogether.fun</span>
+            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
               <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
             </div>
           </div>
