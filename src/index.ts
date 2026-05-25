@@ -270,7 +270,7 @@ export default {
         <div class="space-y-4">
           <h3 class="font-serif text-lg font-medium text-clay-900">Desarrollo e Infraestructura</h3>
           <p>
-            Especializado en el desarrollo de arquitecturas web con <strong>Next.js</strong> y <strong>React</strong>. Implemento soluciones eficientes en el ecosistema <strong>Cloudflare Workers / Pages</strong>, utilizando bases de datos D1 SQL y reduciendo drásticamente la latencia en el borde mediante técnicas avanzadas de caching. También desarrollo aplicaciones móviles nativas multiplataforma con <strong>Flutter</strong>.
+            Especializado en el desarrollo de arquitecturas web con <strong>Next.js</strong> y <strong>React</strong>. Implemento soluciones eficientes en el ecosistema <strong>Cloudflare Workers / Pages</strong>, utilizando bases de datos D1 SQL y <strong>PostgreSQL</strong>, y reduciendo drásticamente la latencia en el borde mediante técnicas avanzadas de caching. También desarrollo aplicaciones móviles nativas multiplataforma con <strong>Flutter</strong>.
           </p>
         </div>
         
