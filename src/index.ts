@@ -231,6 +231,39 @@ export default {
       </div>
     </section>
 
+    <!-- Logros & Reconocimientos -->
+    <section id="logros" class="space-y-8">
+      <div class="border-b border-clay-200 pb-4">
+        <h2 class="font-serif text-2xl font-normal text-clay-900">Logros & Reconocimientos</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm font-light leading-relaxed text-clay-600">
+        <div class="flex items-start gap-3.5">
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-clay-100 flex items-center justify-center text-clay-900 font-serif font-bold text-sm select-none">🏆</span>
+          <div class="space-y-1">
+            <h3 class="font-serif text-base font-medium text-clay-900">CANTABROBOTS 2023 & 2024</h3>
+            <p class="text-clay-600 font-light">Ganador del Torneo de Robótica y Automatización de Cantabria en ediciones consecutivas.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3.5">
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-clay-100 flex items-center justify-center text-clay-900 font-serif font-bold text-sm select-none">🥈</span>
+          <div class="space-y-1">
+            <h3 class="font-serif text-base font-medium text-clay-900">Olimpiadas de Programación de Cantabria</h3>
+            <p class="text-clay-600 font-light">Segundo puesto en las olimpiadas oficiales de programación de la región.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3.5">
+          <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-clay-100 flex items-center justify-center text-clay-900 font-serif font-bold text-sm select-none">🏆</span>
+          <div class="space-y-1">
+            <h3 class="font-serif text-base font-medium text-clay-900">Competición BITUCA 2023</h3>
+            <p class="text-clay-600 font-light">Ganador del certamen de programación de aplicaciones móviles y Python.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Tech Stack / Skills -->
     <section id="sobre-mi" class="space-y-8">
       <div class="border-b border-clay-200 pb-4">
