@@ -189,7 +189,6 @@ export default {
           </div>
         </article>
 
-        <!-- Project 3: raidtogether.fun -->
         <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-start rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
             <div class="flex items-center justify-between">
@@ -198,7 +197,6 @@ export default {
                   Raid Together <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
                 </a>
               </h3>
-              <span class="text-xs text-clay-600 font-mono">raidtogether.fun</span>
             </div>
             
             <p class="text-clay-600 text-sm font-light leading-relaxed">
@@ -214,8 +212,9 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 border border-clay-200 rounded-lg p-3 bg-clay-900 flex items-center justify-center">
-            <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
+          <div class="w-full md:w-48 flex-shrink-0 border border-clay-200 rounded-lg p-4 bg-clay-900 flex flex-col items-center justify-center gap-3">
+            <span class="text-xs font-mono text-clay-400 tracking-wider">raidtogether.fun</span>
+            <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-8 object-contain brightness-0 invert">
           </div>
         </article>
 
