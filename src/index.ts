@@ -1,28 +1,220 @@
 export interface Env { }
 
+// ─── Language detection ───────────────────────────────────────────────────────
+
+type Lang = 'es' | 'en' | 'de';
+
+function detectLang(request: Request, url: URL): Lang {
+  // 1. Explicit override via ?lang=
+  const param = url.searchParams.get('lang');
+  if (param === 'es' || param === 'en' || param === 'de') return param;
+
+  // 2. Accept-Language header
+  const header = request.headers.get('Accept-Language') ?? '';
+  for (const part of header.split(',')) {
+    const tag = part.trim().split(';')[0].trim().toLowerCase();
+    if (tag.startsWith('es')) return 'es';
+    if (tag.startsWith('de')) return 'de';
+    if (tag.startsWith('en')) return 'en';
+  }
+
+  // 3. Default to Spanish
+  return 'es';
+}
+
+// ─── Translations ─────────────────────────────────────────────────────────────
+
+const t: Record<Lang, {
+  htmlLang: string;
+  title: string;
+  metaDescription: string;
+  navProjects: string;
+  navAbout: string;
+  navContact: string;
+  heroH1a: string;
+  heroH1italic: string;
+  heroH1b: string;
+  heroBio: string;
+  sectionProjects: string;
+  // PAU
+  pauDesc: string;
+  // Pearfect
+  pearfectDesc: string;
+  // RaidTogether
+  raidDesc: string;
+  raidPlatform: string;
+  // Achievements
+  sectionAchievements: string;
+  cantabrobotsTitle: string;
+  cantabrobotsDesc: string;
+  olimpiadasTitle: string;
+  olimpiadasDesc: string;
+  bitucaTitle: string;
+  bitucaDesc: string;
+  filosofiaTitle: string;
+  filosofiaDesc: string;
+  // Skills
+  sectionSkills: string;
+  skillsDevTitle: string;
+  skillsDevDesc: string;
+  skillsSecTitle: string;
+  skillsSecDesc: string;
+  // Contact
+  sectionContact: string;
+  contactSubtitle: string;
+  contactEmail: string;
+  // Footer
+  footerCopy: string;
+}> = {
+  es: {
+    htmlLang: 'es',
+    title: 'Ángel Peramato Ayala | Desarrollador de Software',
+    metaDescription: 'Portfolio de Ángel Peramato Ayala. Estudiante de Ingeniería Informática. Creador de examenesdepau.es, pearfect.net y raidtogether.fun. Especialista en Cloudflare, Next.js, React y ciberseguridad.',
+    navProjects: 'Proyectos',
+    navAbout: 'Sobre mí',
+    navContact: 'Contacto',
+    heroH1a: 'Desarrollo de software guiado por la ',
+    heroH1italic: 'simplicidad',
+    heroH1b: ', el rendimiento y la ciberseguridad.',
+    heroBio: 'Hola, soy Ángel. Tengo 18 años y soy estudiante de Ingeniería Informática en la Universidad de Cantabria (UC). Construyo herramientas web eficientes y seguras, principalmente utilizando el ecosistema de Cloudflare, Next.js y React, además de diseñar aplicaciones móviles con Flutter y Firebase.',
+    sectionProjects: 'Proyectos',
+    pauDesc: 'Plataforma web educativa para estudiantes de bachillerato en España. Permite buscar y descargar exámenes de Selectividad. Desarrollada con Drizzle ORM, cuenta con geolocalización automática por IP para mostrar exámenes de la región del usuario directamente.',
+    pearfectDesc: 'Panel premium de administración y gestión de suscripciones SaaS corporativas. Incluye gráficas analíticas en tiempo real (Recharts), un asistente interactivo con IA (Vercel AI SDK) con almacenamiento persistente en AWS S3 y soporte multiidioma.',
+    raidDesc: 'Aplicación móvil nativa diseñada para la coordinación en tiempo real de incursiones (raids) en comunidades de Pokémon GO a nivel mundial. Construida para brindar una experiencia ágil y de muy baja latencia.',
+    raidPlatform: 'Android App',
+    sectionAchievements: 'Logros & Reconocimientos',
+    cantabrobotsTitle: 'CANTABROBOTS 2023 & 2024',
+    cantabrobotsDesc: 'Ganador del Torneo de Robótica y Automatización de Cantabria en ediciones consecutivas.',
+    olimpiadasTitle: 'Olimpiadas de Programación de Cantabria',
+    olimpiadasDesc: 'Segundo puesto en las olimpiadas oficiales de programación de la región.',
+    bitucaTitle: 'Competición BITUCA 2023',
+    bitucaDesc: 'Ganador del certamen de programación de aplicaciones móviles y Python.',
+    filosofiaTitle: 'Olimpiada Filosófica de Cantabria 2023',
+    filosofiaDesc: 'Ganador del certamen regional de la Olimpiada Filosófica.',
+    sectionSkills: 'Habilidades & Especialidad',
+    skillsDevTitle: 'Desarrollo e Infraestructura',
+    skillsDevDesc: 'Especializado en el desarrollo de arquitecturas web con <strong>Next.js</strong> y <strong>React</strong>. Implemento soluciones eficientes en el ecosistema <strong>Cloudflare Workers / Pages</strong>, utilizando bases de datos D1 SQL y <strong>PostgreSQL</strong>, y reduciendo drásticamente la latencia en el borde mediante técnicas avanzadas de caching. También desarrollo aplicaciones móviles nativas multiplataforma con <strong>Flutter</strong>.',
+    skillsSecTitle: 'Ciberseguridad & Bug Bounty',
+    skillsSecDesc: 'Cuento con conocimientos de ciberseguridad a nivel medio (aseguramiento de endpoints, análisis de vulnerabilidades y configuración segura de CDN/Firewalls de Cloudflare). Diseño e implemento <strong>flujos seguros de autenticación</strong> y participo en <strong>Bug Bounty</strong>, buscando y reportando vulnerabilidades de forma responsable.',
+    sectionContact: 'Contacto',
+    contactSubtitle: 'Si tienes un proyecto interesante o estás interesado en trabajar conmigo, puedes escribirme directamente.',
+    contactEmail: 'Enviar Email',
+    footerCopy: '© 2026 Ángel Peramato.',
+  },
+
+  en: {
+    htmlLang: 'en',
+    title: 'Ángel Peramato Ayala | Software Developer',
+    metaDescription: 'Portfolio of Ángel Peramato Ayala. Computer Science student. Creator of examenesdepau.es, pearfect.net and raidtogether.fun. Specialist in Cloudflare, Next.js, React and cybersecurity.',
+    navProjects: 'Projects',
+    navAbout: 'About',
+    navContact: 'Contact',
+    heroH1a: 'Software development guided by ',
+    heroH1italic: 'simplicity',
+    heroH1b: ', performance, and cybersecurity.',
+    heroBio: 'Hi, I\'m Ángel. I\'m 18 years old and a Computer Science student at the University of Cantabria (UC). I build efficient and secure web tools, mainly using the Cloudflare ecosystem, Next.js and React, as well as designing mobile apps with Flutter and Firebase.',
+    sectionProjects: 'Projects',
+    pauDesc: 'Educational web platform for high school students in Spain. Allows searching and downloading university entrance exam papers. Built with Drizzle ORM and featuring automatic IP geolocation to show exams from the user\'s region.',
+    pearfectDesc: 'Premium SaaS subscription management and analytics dashboard. Includes real-time charts (Recharts), an interactive AI assistant (Vercel AI SDK) with persistent storage on AWS S3, and multi-language support.',
+    raidDesc: 'Native mobile app designed for real-time coordination of Pokémon GO raid communities worldwide. Built for an agile, ultra-low latency experience.',
+    raidPlatform: 'Android App',
+    sectionAchievements: 'Awards & Achievements',
+    cantabrobotsTitle: 'CANTABROBOTS 2023 & 2024',
+    cantabrobotsDesc: 'Winner of the Cantabria Robotics and Automation Tournament in two consecutive editions.',
+    olimpiadasTitle: 'Cantabria Programming Olympiad',
+    olimpiadasDesc: 'Second place in the official regional programming competition.',
+    bitucaTitle: 'BITUCA 2023 Competition',
+    bitucaDesc: 'Winner of the mobile app and Python programming contest.',
+    filosofiaTitle: 'Cantabria Philosophy Olympiad 2023',
+    filosofiaDesc: 'Winner of the regional Philosophy Olympiad.',
+    sectionSkills: 'Skills & Expertise',
+    skillsDevTitle: 'Development & Infrastructure',
+    skillsDevDesc: 'Specialized in building web architectures with <strong>Next.js</strong> and <strong>React</strong>. I implement efficient solutions within the <strong>Cloudflare Workers / Pages</strong> ecosystem, using D1 SQL and <strong>PostgreSQL</strong> databases, and drastically reducing edge latency through advanced caching techniques. I also develop cross-platform native mobile apps with <strong>Flutter</strong>.',
+    skillsSecTitle: 'Cybersecurity & Bug Bounty',
+    skillsSecDesc: 'Mid-level cybersecurity knowledge including endpoint hardening, vulnerability analysis, and secure CDN/Firewall configuration via Cloudflare. I design and implement <strong>secure authentication flows</strong> and actively participate in <strong>Bug Bounty</strong> programs, responsibly finding and reporting vulnerabilities.',
+    sectionContact: 'Contact',
+    contactSubtitle: 'If you have an interesting project or want to work with me, feel free to reach out directly.',
+    contactEmail: 'Send Email',
+    footerCopy: '© 2026 Ángel Peramato.',
+  },
+
+  de: {
+    htmlLang: 'de',
+    title: 'Ángel Peramato Ayala | Softwareentwickler',
+    metaDescription: 'Portfolio von Ángel Peramato Ayala. Informatikstudent. Entwickler von examenesdepau.es, pearfect.net und raidtogether.fun. Spezialist für Cloudflare, Next.js, React und Cybersicherheit.',
+    navProjects: 'Projekte',
+    navAbout: 'Über mich',
+    navContact: 'Kontakt',
+    heroH1a: 'Softwareentwicklung geleitet von ',
+    heroH1italic: 'Einfachheit',
+    heroH1b: ', Leistung und Cybersicherheit.',
+    heroBio: 'Hallo, ich bin Ángel. Ich bin 18 Jahre alt und studiere Informatik an der Universität Kantabrien (UC). Ich entwickle effiziente und sichere Web-Tools, hauptsächlich mit dem Cloudflare-Ökosystem, Next.js und React, sowie mobile Apps mit Flutter und Firebase.',
+    sectionProjects: 'Projekte',
+    pauDesc: 'Bildungsplattform für Oberstufenschüler in Spanien zum Suchen und Herunterladen von Hochschulzulassungsprüfungen. Mit Drizzle ORM und automatischer IP-Geolokalisierung für regionsspezifische Prüfungen.',
+    pearfectDesc: 'Premium-SaaS-Dashboard für Abonnementverwaltung und Unternehmensanalysen. Enthält Echtzeit-Diagramme (Recharts), einen interaktiven KI-Assistenten (Vercel AI SDK) mit persistentem Speicher auf AWS S3 und Mehrsprachigkeit.',
+    raidDesc: 'Native mobile App für die Echtzeit-Koordination von Pokémon-GO-Raid-Gemeinschaften weltweit. Entwickelt für eine agile Erfahrung mit sehr geringer Latenz.',
+    raidPlatform: 'Android-App',
+    sectionAchievements: 'Auszeichnungen & Erfolge',
+    cantabrobotsTitle: 'CANTABROBOTS 2023 & 2024',
+    cantabrobotsDesc: 'Gewinner des Robotik- und Automatisierungsturniers Kantabriens in zwei aufeinanderfolgenden Editionen.',
+    olimpiadasTitle: 'Programmierwettbewerb Kantabrien',
+    olimpiadasDesc: 'Zweiter Platz beim offiziellen regionalen Programmier-Olympiad.',
+    bitucaTitle: 'BITUCA-Wettbewerb 2023',
+    bitucaDesc: 'Gewinner des Wettbewerbs für mobile App- und Python-Programmierung.',
+    filosofiaTitle: 'Philosophie-Olympiade Kantabrien 2023',
+    filosofiaDesc: 'Gewinner der regionalen Philosophie-Olympiade.',
+    sectionSkills: 'Fähigkeiten & Expertise',
+    skillsDevTitle: 'Entwicklung & Infrastruktur',
+    skillsDevDesc: 'Spezialisiert auf Web-Architekturen mit <strong>Next.js</strong> und <strong>React</strong>. Ich implementiere effiziente Lösungen im <strong>Cloudflare Workers / Pages</strong>-Ökosystem mit D1 SQL und <strong>PostgreSQL</strong> und reduziere die Edge-Latenz durch fortgeschrittenes Caching. Außerdem entwickle ich plattformübergreifende mobile Apps mit <strong>Flutter</strong>.',
+    skillsSecTitle: 'Cybersicherheit & Bug Bounty',
+    skillsSecDesc: 'Mittlere Kenntnisse in Cybersicherheit: Endpoint-Absicherung, Schwachstellenanalyse und sichere CDN/Firewall-Konfiguration über Cloudflare. Ich entwerfe und implementiere <strong>sichere Authentifizierungsabläufe</strong> und nehme aktiv an <strong>Bug-Bounty</strong>-Programmen teil, um Sicherheitslücken verantwortungsbewusst aufzudecken.',
+    sectionContact: 'Kontakt',
+    contactSubtitle: 'Wenn Sie ein interessantes Projekt haben oder mit mir zusammenarbeiten möchten, können Sie mich direkt kontaktieren.',
+    contactEmail: 'E-Mail senden',
+    footerCopy: '© 2026 Ángel Peramato.',
+  },
+};
+
+// ─── Worker ───────────────────────────────────────────────────────────────────
+
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    // www → root redirect
     if (url.hostname === 'www.peramato.dev') {
       return Response.redirect('https://peramato.dev' + url.pathname + url.search, 301);
     }
 
+    const lang = detectLang(request, url);
+    const s = t[lang];
+
+    // Lang switcher helpers – keep current path, swap lang param
+    const langUrl = (l: Lang) => `?lang=${l}`;
+
     const html = `<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="${s.htmlLang}" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ángel Peramato Ayala | Desarrollador de Software</title>
-  <meta name="description" content="Portfolio de Ángel Peramato Ayala. Estudiante de Ingeniería Informática. Creador de examenesdepau.es, pearfect.net y raidtogether.fun. Especialista en Cloudflare, Next.js, React y ciberseguridad.">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23191919'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Newsreader, Georgia, serif' font-weight='bold' fill='white' text-anchor='middle'%3EÁ%3C/text%3E%3C/svg%3E">
-  
-  <!-- Google Fonts: Newsreader (Editorial Serif) & Inter (Clean Sans) -->
+  <title>${s.title}</title>
+  <meta name="description" content="${s.metaDescription}">
+
+  <!-- Canonical & hreflang -->
+  <link rel="canonical" href="https://peramato.dev/">
+  <link rel="alternate" hreflang="es" href="https://peramato.dev/?lang=es">
+  <link rel="alternate" hreflang="en" href="https://peramato.dev/?lang=en">
+  <link rel="alternate" hreflang="de" href="https://peramato.dev/?lang=de">
+  <link rel="alternate" hreflang="x-default" href="https://peramato.dev/">
+
+  <!-- Favicon (SVG inline – Newsreader Latin Extended guaranteed) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23191919'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Newsreader, Georgia, serif' font-weight='bold' fill='white' text-anchor='middle'%3E%C3%81%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Newsreader (Latin + Latin-ext for Á, accent chars) & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&subset=latin,latin-ext&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -57,24 +249,11 @@ export default {
       color: #191919;
       font-family: 'Inter', sans-serif;
     }
-    
-    .border-subtle {
-      border-color: #e5e5e0;
-    }
-
-    /* Minimalist selection styling */
-    ::selection {
-      background: #e5e5e0;
-      color: #191919;
-    }
-    
-    .project-card {
-      transition: all 0.3s ease;
-    }
-    
-    .project-card:hover {
-      background-color: #f5f5f3;
-    }
+    ::selection { background: #e5e5e0; color: #191919; }
+    .project-card { transition: all 0.3s ease; }
+    .project-card:hover { background-color: #f5f5f3; }
+    .lang-btn { transition: color 0.15s, border-color 0.15s; }
+    .lang-btn.active { color: #191919; border-bottom: 1.5px solid #191919; }
   </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col selection:bg-clay-200">
@@ -82,29 +261,40 @@ export default {
   <!-- Header -->
   <header class="w-full border-b border-clay-200 py-6 bg-clay-50 sticky top-0 z-40">
     <div class="max-w-4xl mx-auto px-6 sm:px-12 flex items-center justify-between">
-      <a href="#" class="group">
+      <a href="/" class="group">
         <span class="font-serif text-xl font-medium tracking-tight text-clay-900">Ángel Peramato</span>
       </a>
-      
-      <nav class="flex items-center gap-6 text-sm text-clay-600">
-        <a href="#proyectos" class="hover:text-clay-900 transition-colors">Proyectos</a>
-        <a href="#sobre-mi" class="hover:text-clay-900 transition-colors">Sobre mí</a>
-        <a href="#contacto" class="hover:text-clay-900 transition-colors">Contacto</a>
-      </nav>
+
+      <div class="flex items-center gap-6">
+        <nav class="hidden sm:flex items-center gap-6 text-sm text-clay-600">
+          <a href="#proyectos" class="hover:text-clay-900 transition-colors">${s.navProjects}</a>
+          <a href="#sobre-mi" class="hover:text-clay-900 transition-colors">${s.navAbout}</a>
+          <a href="#contacto" class="hover:text-clay-900 transition-colors">${s.navContact}</a>
+        </nav>
+
+        <!-- Language switcher -->
+        <div class="flex items-center gap-2 text-xs font-mono text-clay-600 border-l border-clay-200 pl-4 ml-2">
+          <a href="${langUrl('es')}" class="lang-btn pb-px ${lang === 'es' ? 'active' : 'hover:text-clay-900'}">ES</a>
+          <span class="text-clay-300">·</span>
+          <a href="${langUrl('en')}" class="lang-btn pb-px ${lang === 'en' ? 'active' : 'hover:text-clay-900'}">EN</a>
+          <span class="text-clay-300">·</span>
+          <a href="${langUrl('de')}" class="lang-btn pb-px ${lang === 'de' ? 'active' : 'hover:text-clay-900'}">DE</a>
+        </div>
+      </div>
     </div>
   </header>
 
   <!-- Main Container -->
   <main class="flex-grow max-w-4xl w-full mx-auto px-6 sm:px-12 py-16 sm:py-24 space-y-24">
-    
+
     <!-- Hero / Intro -->
     <section class="space-y-6">
       <h1 class="font-serif text-4xl sm:text-6xl text-clay-900 tracking-tight leading-none font-light">
-        Desarrollo de software guiado por la <span class="italic font-normal">simplicidad</span>, el rendimiento y la ciberseguridad.
+        ${s.heroH1a}<span class="italic font-normal">${s.heroH1italic}</span>${s.heroH1b}
       </h1>
-      
+
       <p class="text-clay-600 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
-        Hola, soy Ángel. Tengo 18 años y soy estudiante de Ingeniería Informática en la Universidad de Cantabria (UC). Construyo herramientas web eficientes y seguras, principalmente utilizando el ecosistema de Cloudflare, Next.js y React, además de diseñar aplicaciones móviles con Flutter y Firebase.
+        ${s.heroBio}
       </p>
 
       <div class="flex items-center gap-4 pt-2">
@@ -123,39 +313,26 @@ export default {
     <!-- Projects Section -->
     <section id="proyectos" class="space-y-8">
       <div class="border-b border-clay-200 pb-4">
-        <h2 class="font-serif text-2xl font-normal text-clay-900">Proyectos</h2>
+        <h2 class="font-serif text-2xl font-normal text-clay-900">${s.sectionProjects}</h2>
       </div>
 
       <div class="divide-y divide-clay-200">
-        
+
         <!-- Project 1: examenesdepau.es -->
         <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-serif text-xl font-medium text-clay-900">
-                <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
-                  Exámenes de PAU <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
-                </a>
-              </h3>
-            </div>
-            
-            <p class="text-clay-600 text-sm font-light leading-relaxed">
-              Plataforma web educativa para estudiantes de bachillerato en España. Permite buscar y descargar exámenes de Selectividad. Desarrollada con Drizzle ORM, cuenta con geolocalización automática por IP para mostrar exámenes de la región del usuario directamente.
-            </p>
-            
+            <h3 class="font-serif text-xl font-medium text-clay-900">
+              <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
+                Exámenes de PAU <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
+              </a>
+            </h3>
+            <p class="text-clay-600 text-sm font-light leading-relaxed">${s.pauDesc}</p>
             <div class="flex flex-wrap gap-2 text-xs font-mono text-clay-600">
-              <span>Next.js 16</span>
-              <span>•</span>
-              <span>Drizzle ORM</span>
-              <span>•</span>
-              <span>Cloudflare Workers</span>
-              <span>•</span>
-              <span>D1 SQL</span>
-              <span>•</span>
+              <span>Next.js 16</span><span>•</span><span>Drizzle ORM</span><span>•</span>
+              <span>Cloudflare Workers</span><span>•</span><span>D1 SQL</span><span>•</span>
               <span>Edge Caching</span>
             </div>
           </div>
-          
           <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
             <span class="font-serif text-white text-2xl font-bold tracking-tight leading-none">PAU</span>
           </a>
@@ -164,31 +341,18 @@ export default {
         <!-- Project 2: pearfect.net -->
         <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-serif text-xl font-medium text-clay-900">
-                <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
-                  Pearfect Dashboard <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
-                </a>
-              </h3>
-            </div>
-            
-            <p class="text-clay-600 text-sm font-light leading-relaxed">
-              Panel premium de administración y gestión de suscripciones SaaS corporativas. Incluye gráficas analíticas en tiempo real (Recharts), un asistente interactivo con IA (Vercel AI SDK) con almacenamiento persistente en AWS S3 y soporte multiidioma.
-            </p>
-            
+            <h3 class="font-serif text-xl font-medium text-clay-900">
+              <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
+                Pearfect Dashboard <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
+              </a>
+            </h3>
+            <p class="text-clay-600 text-sm font-light leading-relaxed">${s.pearfectDesc}</p>
             <div class="flex flex-wrap gap-2 text-xs font-mono text-clay-600">
-              <span>Next.js 16</span>
-              <span>•</span>
-              <span>React 19</span>
-              <span>•</span>
-              <span>Prisma ORM</span>
-              <span>•</span>
-              <span>PostgreSQL</span>
-              <span>•</span>
+              <span>Next.js 16</span><span>•</span><span>React 19</span><span>•</span>
+              <span>Prisma ORM</span><span>•</span><span>PostgreSQL</span><span>•</span>
               <span>AWS S3</span>
             </div>
           </div>
-          
           <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
             <svg viewBox="-2.5 0 48 48" class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <g class="stroke-white"><line x1="16" y1="12" x2="16" y2="36"></line><path d="M16 12 H26 C31 12 31 22 26 22 H16"></path></g>
@@ -202,27 +366,17 @@ export default {
         <!-- Project 3: raidtogether.fun -->
         <article class="project-card py-8 flex flex-col md:flex-row gap-6 items-center rounded-xl px-4 -mx-4 transition-colors">
           <div class="flex-grow space-y-4">
-            <div class="flex items-center justify-between">
-              <h3 class="font-serif text-xl font-medium text-clay-900">
-                <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
-                  Raid Together <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
-                </a>
-              </h3>
-            </div>
-            
-            <p class="text-clay-600 text-sm font-light leading-relaxed">
-              Aplicación móvil nativa diseñada para la coordinación en tiempo real de incursiones (raids) en comunidades de Pokémon GO a nivel mundial. Construida para brindar una experiencia ágil y de muy baja latencia.
-            </p>
-            
+            <h3 class="font-serif text-xl font-medium text-clay-900">
+              <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="hover:underline flex items-center gap-1.5">
+                Raid Together <i data-lucide="arrow-up-right" class="w-4 h-4 text-clay-600"></i>
+              </a>
+            </h3>
+            <p class="text-clay-600 text-sm font-light leading-relaxed">${s.raidDesc}</p>
             <div class="flex flex-wrap gap-2 text-xs font-mono text-clay-600">
-              <span>Flutter</span>
-              <span>•</span>
-              <span>Firebase</span>
-              <span>•</span>
-              <span>Android App</span>
+              <span>Flutter</span><span>•</span><span>Firebase</span><span>•</span>
+              <span>${s.raidPlatform}</span>
             </div>
           </div>
-          
           <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
             <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
           </a>
@@ -234,28 +388,25 @@ export default {
     <!-- Logros & Reconocimientos -->
     <section id="logros" class="space-y-8">
       <div class="border-b border-clay-200 pb-4">
-        <h2 class="font-serif text-2xl font-normal text-clay-900">Logros & Reconocimientos</h2>
+        <h2 class="font-serif text-2xl font-normal text-clay-900">${s.sectionAchievements}</h2>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm font-light leading-relaxed text-clay-600">
         <div class="space-y-1">
-          <h3 class="font-serif text-base font-medium text-clay-900">CANTABROBOTS 2023 & 2024</h3>
-          <p class="text-clay-600 font-light">Ganador del Torneo de Robótica y Automatización de Cantabria en ediciones consecutivas.</p>
+          <h3 class="font-serif text-base font-medium text-clay-900">${s.cantabrobotsTitle}</h3>
+          <p class="text-clay-600 font-light">${s.cantabrobotsDesc}</p>
         </div>
-
         <div class="space-y-1">
-          <h3 class="font-serif text-base font-medium text-clay-900">Olimpiadas de Programación de Cantabria</h3>
-          <p class="text-clay-600 font-light">Segundo puesto en las olimpiadas oficiales de programación de la región.</p>
+          <h3 class="font-serif text-base font-medium text-clay-900">${s.olimpiadasTitle}</h3>
+          <p class="text-clay-600 font-light">${s.olimpiadasDesc}</p>
         </div>
-
         <div class="space-y-1">
-          <h3 class="font-serif text-base font-medium text-clay-900">Competición BITUCA 2023</h3>
-          <p class="text-clay-600 font-light">Ganador del certamen de programación de aplicaciones móviles y Python.</p>
+          <h3 class="font-serif text-base font-medium text-clay-900">${s.bitucaTitle}</h3>
+          <p class="text-clay-600 font-light">${s.bitucaDesc}</p>
         </div>
-
         <div class="space-y-1">
-          <h3 class="font-serif text-base font-medium text-clay-900">Olimpiada Filosófica de Cantabria 2023</h3>
-          <p class="text-clay-600 font-light">Ganador del certamen regional de la Olimpiada Filosófica.</p>
+          <h3 class="font-serif text-base font-medium text-clay-900">${s.filosofiaTitle}</h3>
+          <p class="text-clay-600 font-light">${s.filosofiaDesc}</p>
         </div>
       </div>
     </section>
@@ -263,36 +414,29 @@ export default {
     <!-- Tech Stack / Skills -->
     <section id="sobre-mi" class="space-y-8">
       <div class="border-b border-clay-200 pb-4">
-        <h2 class="font-serif text-2xl font-normal text-clay-900">Habilidades & Especialidad</h2>
+        <h2 class="font-serif text-2xl font-normal text-clay-900">${s.sectionSkills}</h2>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm font-light leading-relaxed text-clay-600">
         <div class="space-y-4">
-          <h3 class="font-serif text-lg font-medium text-clay-900">Desarrollo e Infraestructura</h3>
-          <p>
-            Especializado en el desarrollo de arquitecturas web con <strong>Next.js</strong> y <strong>React</strong>. Implemento soluciones eficientes en el ecosistema <strong>Cloudflare Workers / Pages</strong>, utilizando bases de datos D1 SQL y <strong>PostgreSQL</strong>, y reduciendo drásticamente la latencia en el borde mediante técnicas avanzadas de caching. También desarrollo aplicaciones móviles nativas multiplataforma con <strong>Flutter</strong>.
-          </p>
+          <h3 class="font-serif text-lg font-medium text-clay-900">${s.skillsDevTitle}</h3>
+          <p>${s.skillsDevDesc}</p>
         </div>
-        
         <div class="space-y-4">
-          <h3 class="font-serif text-lg font-medium text-clay-900">Ciberseguridad & Bug Bounty</h3>
-          <p>
-            Cuento con conocimientos de ciberseguridad a nivel medio (aseguramiento de endpoints, análisis de vulnerabilidades y configuración segura de CDN/Firewalls de Cloudflare). Diseño e implemento <strong>flujos seguros de autenticación</strong> y participo en <strong>Bug Bounty</strong>, buscando y reportando vulnerabilidades de forma responsable.
-          </p>
+          <h3 class="font-serif text-lg font-medium text-clay-900">${s.skillsSecTitle}</h3>
+          <p>${s.skillsSecDesc}</p>
         </div>
       </div>
     </section>
 
-    <!-- Contact & Footer -->
+    <!-- Contact -->
     <section id="contacto" class="border-t border-clay-200 pt-16 space-y-6 text-center">
-      <h2 class="font-serif text-3xl text-clay-900">Contacto</h2>
-      <p class="text-clay-600 text-sm font-light max-w-md mx-auto">
-        Si tienes un proyecto interesante o estás interesado en trabajar conmigo, puedes escribirme directamente.
-      </p>
-      
+      <h2 class="font-serif text-3xl text-clay-900">${s.sectionContact}</h2>
+      <p class="text-clay-600 text-sm font-light max-w-md mx-auto">${s.contactSubtitle}</p>
+
       <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
         <a href="mailto:angel@peramato.dev" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-clay-900 hover:bg-clay-900/90 rounded-lg transition-colors">
-          <i data-lucide="mail" class="w-4 h-4 mr-2"></i> Enviar Email
+          <i data-lucide="mail" class="w-4 h-4 mr-2"></i> ${s.contactEmail}
         </a>
         <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-medium text-clay-900 border-b border-clay-900 pb-0.5 hover:opacity-75 transition-opacity">
           GitHub <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1"></i>
@@ -308,7 +452,7 @@ export default {
   <!-- Footer -->
   <footer class="w-full border-t border-clay-200 py-8 px-6 sm:px-12 bg-clay-100 text-center text-xs text-clay-600">
     <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 Ángel Peramato.</p>
+      <p>${s.footerCopy}</p>
       <div class="flex gap-4">
         <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="hover:underline">examenesdepau.es</a>
         <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="hover:underline">pearfect.net</a>
@@ -318,9 +462,7 @@ export default {
   </footer>
 
   <!-- Initialize Lucide Icons -->
-  <script>
-    lucide.createIcons();
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>`;
 
@@ -329,6 +471,7 @@ export default {
         'Content-Type': 'text/html; charset=utf-8',
         'X-Content-Type-Options': 'nosniff',
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+        'Vary': 'Accept-Language',
       },
     });
   },
