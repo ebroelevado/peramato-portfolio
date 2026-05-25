@@ -65,6 +65,7 @@ const t: Record<Lang, {
   contactEmail: string;
   // Footer
   footerCopy: string;
+  raidLogoAlt: string;
 }> = {
   es: {
     htmlLang: 'es',
@@ -100,6 +101,7 @@ const t: Record<Lang, {
     contactSubtitle: 'Si tienes un proyecto interesante o estás interesado en trabajar conmigo, puedes escribirme directamente.',
     contactEmail: 'Enviar Email',
     footerCopy: '© 2026 Ángel Peramato.',
+    raidLogoAlt: 'Logo de Raid Together',
   },
 
   en: {
@@ -136,6 +138,7 @@ const t: Record<Lang, {
     contactSubtitle: 'If you have an interesting project or want to work with me, feel free to reach out directly.',
     contactEmail: 'Send Email',
     footerCopy: '© 2026 Ángel Peramato.',
+    raidLogoAlt: 'Raid Together Logo',
   },
 
   de: {
@@ -172,6 +175,7 @@ const t: Record<Lang, {
     contactSubtitle: 'Wenn Sie ein interessantes Projekt haben oder mit mir zusammenarbeiten möchten, können Sie mich direkt kontaktieren.',
     contactEmail: 'E-Mail senden',
     footerCopy: '© 2026 Ángel Peramato.',
+    raidLogoAlt: 'Raid Together Logo',
   },
 };
 
@@ -186,8 +190,87 @@ export default {
       return Response.redirect('https://peramato.dev' + url.pathname + url.search, 301);
     }
 
+    // Route: robots.txt
+    if (url.pathname === '/robots.txt') {
+      const robots = `User-agent: *
+Allow: /
+
+Sitemap: https://peramato.dev/sitemap.xml`;
+      return new Response(robots, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        },
+      });
+    }
+
+    // Route: sitemap.xml
+    if (url.pathname === '/sitemap.xml') {
+      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://peramato.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peramato.dev/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peramato.dev/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://peramato.dev/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peramato.dev/"/>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>`;
+      return new Response(sitemap, {
+        headers: {
+          'Content-Type': 'application/xml; charset=utf-8',
+          'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+        },
+      });
+    }
+
+    // Route: 404 handling
+    if (url.pathname !== '/') {
+      const html404 = `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Página no encontrada / Page Not Found</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fbfbfa;
+      color: #191919;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center antialiased">
+  <h1 class="text-6xl font-light tracking-tight mb-4">404</h1>
+  <p class="text-clay-600 text-lg mb-8 font-light max-w-md">La página que buscas no existe. / The page you are looking for does not exist.</p>
+  <a href="/" class="px-6 py-2.5 text-sm font-medium text-white bg-[#191919] hover:bg-[#191919]/90 rounded-lg transition-colors">
+    Volver al inicio / Go Home
+  </a>
+</body>
+</html>`;
+      return new Response(html404, {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+        },
+      });
+    }
+
     const lang = detectLang(request, url);
     const s = t[lang];
+
+    const hasLangParam = url.searchParams.has('lang');
+    const canonicalUrl = hasLangParam 
+      ? `https://peramato.dev/?lang=${lang}` 
+      : 'https://peramato.dev/';
 
     // Lang switcher helpers – keep current path, swap lang param
     const langUrl = (l: Lang) => `?lang=${l}`;
@@ -199,13 +282,66 @@ export default {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${s.title}</title>
   <meta name="description" content="${s.metaDescription}">
+  <meta name="keywords" content="Ángel Peramato, Angel Peramato, Peramato, Ángel Peramato Ayala, Angel Peramato Ayala, desarrollador software, software developer, portfolio, examenesdepau, pearfect, raidtogether">
+  <meta http-equiv="content-language" content="${s.htmlLang}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${s.title}">
+  <meta property="og:description" content="${s.metaDescription}">
+  <meta property="og:url" content="${canonicalUrl}">
+  <meta property="og:site_name" content="Ángel Peramato Ayala">
+  <meta property="og:locale" content="${lang === 'es' ? 'es_ES' : lang === 'de' ? 'de_DE' : 'en_US'}">
+  <meta property="og:locale:alternate" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="de_DE">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${s.title}">
+  <meta name="twitter:description" content="${s.metaDescription}">
 
   <!-- Canonical & hreflang -->
-  <link rel="canonical" href="https://peramato.dev/">
+  <link rel="canonical" href="${canonicalUrl}">
   <link rel="alternate" hreflang="es" href="https://peramato.dev/?lang=es">
   <link rel="alternate" hreflang="en" href="https://peramato.dev/?lang=en">
   <link rel="alternate" hreflang="de" href="https://peramato.dev/?lang=de">
   <link rel="alternate" hreflang="x-default" href="https://peramato.dev/">
+
+  <!-- Identity Verification / Social Links -->
+  <link rel="me" href="https://github.com/ebroelevado">
+  <link rel="me" href="https://www.linkedin.com/in/peramato/">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ángel Peramato Ayala",
+      "alternateName": ["Ángel Peramato", "Angel Peramato", "Peramato", "Ángel Peramato Ayala", "Angel Peramato Ayala"],
+      "url": "https://peramato.dev",
+      "jobTitle": "Software Developer",
+      "knowsAbout": ["Next.js", "React", "Cloudflare Workers", "Cybersecurity", "Flutter", "PostgreSQL", "Drizzle ORM"],
+      "sameAs": [
+        "https://github.com/ebroelevado",
+        "https://www.linkedin.com/in/peramato/"
+      ],
+      "email": "angel@peramato.dev",
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Universidad de Cantabria"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Ángel Peramato Ayala",
+      "url": "https://peramato.dev",
+      "inLanguage": ["es", "en", "de"]
+    }
+  </script>
 
   <!-- Favicon (SVG inline – Newsreader Latin Extended guaranteed) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23191919'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Newsreader, Georgia, serif' font-weight='bold' fill='white' text-anchor='middle'%3E%C3%81%3C/text%3E%3C/svg%3E">
@@ -378,7 +514,7 @@ export default {
             </div>
           </div>
           <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="w-16 h-16 flex-shrink-0 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center hover:scale-105 transition-transform duration-200">
-            <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="Raid Together Logo" class="h-10 object-contain brightness-0 invert">
+            <img src="https://image.raidtogether.fun/images/screenshots/logo.webp?v=2" alt="${s.raidLogoAlt}" class="h-10 object-contain brightness-0 invert">
           </a>
         </article>
 
@@ -472,6 +608,11 @@ export default {
         'X-Content-Type-Options': 'nosniff',
         'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
         'Vary': 'Accept-Language',
+        'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+        'X-Frame-Options': 'DENY',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'Content-Language': lang,
       },
     });
   },
