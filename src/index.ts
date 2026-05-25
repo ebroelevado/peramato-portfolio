@@ -149,8 +149,10 @@ export default {
             </div>
           </div>
           
-          <div class="w-full md:w-48 flex-shrink-0 border border-clay-200 rounded-lg p-2 bg-white flex items-center justify-center">
-            <span class="text-xs font-mono text-clay-600 uppercase tracking-wider">examenesdepau.es</span>
+          <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
+            <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
+              <span class="flex size-8 items-center justify-center rounded-lg bg-clay-50 text-clay-900 text-xs font-black">PAU</span>
+            </div>
           </div>
         </article>
 
