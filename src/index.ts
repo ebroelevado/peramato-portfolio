@@ -2,6 +2,11 @@ export interface Env { }
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+    if (url.hostname === 'www.peramato.dev') {
+      return Response.redirect('https://peramato.dev' + url.pathname + url.search, 301);
+    }
+
     const html = `<!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
@@ -11,7 +16,7 @@ export default {
   <meta name="description" content="Portfolio de Ángel Peramato Ayala. Estudiante de Ingeniería Informática. Creador de examenesdepau.es, pearfect.net y raidtogether.fun. Especialista en Cloudflare, Next.js, React y ciberseguridad.">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://examenesdepau.es/favicon.jpg">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23191919'/%3E%3Ctext x='50' y='68' font-size='55' font-family='Newsreader, Georgia, serif' font-weight='bold' fill='white' text-anchor='middle'%3EÁ%3C/text%3E%3C/svg%3E">
   
   <!-- Google Fonts: Newsreader (Editorial Serif) & Inter (Clean Sans) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -75,10 +80,11 @@ export default {
 <body class="antialiased min-h-screen flex flex-col selection:bg-clay-200">
 
   <!-- Header -->
-  <header class="w-full border-b border-clay-200 py-6 px-6 sm:px-12 bg-clay-50 sticky top-0 z-40">
-    <div class="max-w-4xl mx-auto flex items-center justify-between">
-      <a href="#" class="font-serif text-xl font-medium tracking-tight text-clay-900">
-        Ángel Peramato
+  <header class="w-full border-b border-clay-200 py-6 bg-clay-50 sticky top-0 z-40">
+    <div class="max-w-4xl mx-auto px-6 sm:px-12 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <span class="flex w-7 h-7 items-center justify-center rounded bg-clay-900 text-white font-serif text-base font-bold leading-none select-none">Á</span>
+        <span class="font-serif text-xl font-medium tracking-tight text-clay-900">Ángel Peramato</span>
       </a>
       
       <nav class="flex items-center gap-6 text-sm text-clay-600">
