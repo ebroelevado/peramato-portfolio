@@ -4,24 +4,6 @@ export interface Env { }
 
 type Lang = 'es' | 'en' | 'de';
 
-function detectLang(request: Request, url: URL): Lang {
-  // 1. Explicit override via ?lang=
-  const param = url.searchParams.get('lang');
-  if (param === 'es' || param === 'en' || param === 'de') return param;
-
-  // 2. Accept-Language header
-  const header = request.headers.get('Accept-Language') ?? '';
-  for (const part of header.split(',')) {
-    const tag = part.trim().split(';')[0].trim().toLowerCase();
-    if (tag.startsWith('es')) return 'es';
-    if (tag.startsWith('de')) return 'de';
-    if (tag.startsWith('en')) return 'en';
-  }
-
-  // 3. Default to Spanish
-  return 'es';
-}
-
 // ─── Translations ─────────────────────────────────────────────────────────────
 
 const t: Record<Lang, {
@@ -190,6 +172,25 @@ export default {
       return Response.redirect('https://peramato.dev' + url.pathname + url.search, 301);
     }
 
+    // 1. Redirect legacy ?lang= params to clean subdirectory paths (SEO preservation)
+    const queryLang = url.searchParams.get('lang');
+    if (queryLang === 'en') {
+      return Response.redirect('https://peramato.dev/en', 301);
+    } else if (queryLang === 'de') {
+      return Response.redirect('https://peramato.dev/de', 301);
+    } else if (queryLang === 'es') {
+      return Response.redirect('https://peramato.dev/', 301);
+    }
+
+    // 2. Trailing slash normalization for languages
+    if (url.pathname === '/en/') {
+      return Response.redirect('https://peramato.dev/en', 301);
+    } else if (url.pathname === '/de/') {
+      return Response.redirect('https://peramato.dev/de', 301);
+    } else if (url.pathname === '/es/' || url.pathname === '/es') {
+      return Response.redirect('https://peramato.dev/', 301);
+    }
+
     // Route: robots.txt
     if (url.pathname === '/robots.txt') {
       const robots = `User-agent: *
@@ -211,13 +212,33 @@ Sitemap: https://peramato.dev/sitemap.xml`;
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://peramato.dev/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://peramato.dev/?lang=es"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://peramato.dev/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://peramato.dev/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peramato.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peramato.dev/en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://peramato.dev/de"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://peramato.dev/"/>
     <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://peramato.dev/en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peramato.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peramato.dev/en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://peramato.dev/de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peramato.dev/"/>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://peramato.dev/de</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://peramato.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://peramato.dev/en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://peramato.dev/de"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://peramato.dev/"/>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>`;
       return new Response(sitemap, {
@@ -228,8 +249,21 @@ Sitemap: https://peramato.dev/sitemap.xml`;
       });
     }
 
-    // Route: 404 handling
-    if (url.pathname !== '/') {
+    // Language determination by pathname
+    let lang: Lang = 'es';
+    let canonicalUrl = 'https://peramato.dev/';
+
+    if (url.pathname === '/') {
+      lang = 'es';
+      canonicalUrl = 'https://peramato.dev/';
+    } else if (url.pathname === '/en') {
+      lang = 'en';
+      canonicalUrl = 'https://peramato.dev/en';
+    } else if (url.pathname === '/de') {
+      lang = 'de';
+      canonicalUrl = 'https://peramato.dev/de';
+    } else {
+      // 404 Route handling
       const html404 = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -264,16 +298,10 @@ Sitemap: https://peramato.dev/sitemap.xml`;
       });
     }
 
-    const lang = detectLang(request, url);
     const s = t[lang];
 
-    const hasLangParam = url.searchParams.has('lang');
-    const canonicalUrl = hasLangParam 
-      ? `https://peramato.dev/?lang=${lang}` 
-      : 'https://peramato.dev/';
-
     // Lang switcher helpers – keep current path, swap lang param
-    const langUrl = (l: Lang) => `?lang=${l}`;
+    const langUrl = (l: Lang) => l === 'es' ? '/' : `/${l}`;
 
     const html = `<!DOCTYPE html>
 <html lang="${s.htmlLang}" class="scroll-smooth">
@@ -303,9 +331,9 @@ Sitemap: https://peramato.dev/sitemap.xml`;
 
   <!-- Canonical & hreflang -->
   <link rel="canonical" href="${canonicalUrl}">
-  <link rel="alternate" hreflang="es" href="https://peramato.dev/?lang=es">
-  <link rel="alternate" hreflang="en" href="https://peramato.dev/?lang=en">
-  <link rel="alternate" hreflang="de" href="https://peramato.dev/?lang=de">
+  <link rel="alternate" hreflang="es" href="https://peramato.dev/">
+  <link rel="alternate" hreflang="en" href="https://peramato.dev/en">
+  <link rel="alternate" hreflang="de" href="https://peramato.dev/de">
   <link rel="alternate" hreflang="x-default" href="https://peramato.dev/">
 
   <!-- Identity Verification / Social Links -->
