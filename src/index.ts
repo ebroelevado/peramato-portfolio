@@ -120,9 +120,12 @@ export default {
         <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
       </nav>
 
-      <div class="flex items-center gap-4">
-        <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 hover:text-white transition-all">
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 hover:text-white transition-all" title="GitHub">
           <i data-lucide="github" class="w-5 h-5"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/peramato/" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 text-gray-300 hover:text-white transition-all" title="LinkedIn">
+          <i data-lucide="linkedin" class="w-5 h-5"></i>
         </a>
         <a href="#contacto" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-xs font-semibold tracking-wide text-white bg-brand-600 rounded-lg hover:bg-brand-500 transition-all border border-brand-500/20 shadow-lg shadow-brand-600/10">
           Trabajemos juntos
@@ -374,7 +377,10 @@ export default {
           <i data-lucide="mail" class="w-4 h-4 mr-2"></i> Escríbeme un email
         </a>
         <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-gray-300 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:text-white transition-all">
-          <i data-lucide="github" class="w-4 h-4 mr-2"></i> Ver GitHub
+          <i data-lucide="github" class="w-4 h-4 mr-2"></i> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/peramato/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-gray-300 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:text-white transition-all">
+          <i data-lucide="linkedin" class="w-4 h-4 mr-2"></i> LinkedIn
         </a>
       </div>
     </div>
@@ -384,9 +390,8 @@ export default {
   <footer class="max-w-6xl mx-auto px-6 py-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
     <p>© 2026 peramato.dev. Creado con amor y alojado en Cloudflare Workers.</p>
     <div class="flex gap-6">
-      <a href="https://examenesdepau.es" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">examenesdepau.es</a>
-      <a href="https://pearfect.net" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">pearfect.net</a>
-      <a href="https://raidtogether.fun" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">raidtogether.fun</a>
+      <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">GitHub</a>
+      <a href="https://www.linkedin.com/in/peramato/" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 transition-colors">LinkedIn</a>
     </div>
   </footer>
 
