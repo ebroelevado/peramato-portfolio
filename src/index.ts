@@ -151,7 +151,7 @@ export default {
           
           <div class="w-full md:w-48 flex-shrink-0 flex flex-col items-center gap-1">
             <div class="w-16 h-16 border border-clay-200 rounded-lg bg-clay-900 flex items-center justify-center mt-3">
-              <span class="flex size-8 items-center justify-center rounded-lg bg-clay-50 text-clay-900 text-xs font-black">PAU</span>
+              <span class="font-serif text-white text-2xl font-bold tracking-tight">PAU</span>
             </div>
           </div>
         </article>
