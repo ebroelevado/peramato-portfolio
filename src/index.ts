@@ -109,8 +109,8 @@ export default {
         <a href="https://www.linkedin.com/in/peramato/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-medium text-clay-900 border-b border-clay-900 pb-0.5 hover:opacity-75 transition-opacity">
           LinkedIn <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 ml-1"></i>
         </a>
-        <a href="mailto:ebroelevado@gmail.com" class="inline-flex items-center text-sm font-medium text-clay-600 hover:text-clay-900 transition-colors">
-          ebroelevado@gmail.com
+        <a href="mailto:angel@peramato.dev" class="inline-flex items-center text-sm font-medium text-clay-600 hover:text-clay-900 transition-colors">
+          angel@peramato.dev
         </a>
       </div>
     </section>
@@ -253,7 +253,7 @@ export default {
       </p>
       
       <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-        <a href="mailto:ebroelevado@gmail.com" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-clay-900 hover:bg-clay-900/90 rounded-lg transition-colors">
+        <a href="mailto:angel@peramato.dev" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-clay-900 hover:bg-clay-900/90 rounded-lg transition-colors">
           <i data-lucide="mail" class="w-4 h-4 mr-2"></i> Enviar Email
         </a>
         <a href="https://github.com/ebroelevado" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm font-medium text-clay-900 border-b border-clay-900 pb-0.5 hover:opacity-75 transition-opacity">
