@@ -275,9 +275,9 @@ export default {
         </div>
         
         <div class="space-y-4">
-          <h3 class="font-serif text-lg font-medium text-clay-900">Ciberseguridad & Scraping</h3>
+          <h3 class="font-serif text-lg font-medium text-clay-900">Ciberseguridad & Bug Bounty</h3>
           <p>
-            Cuento con conocimientos de ciberseguridad a nivel medio (aseguramiento de endpoints, análisis de vulnerabilidades y configuración segura de CDN/Firewalls de Cloudflare). Desarrollo scripts de <strong>web scraping</strong> estructurados para la ingesta y estructuración automática de datos en bases de datos relacionales y de clave-valor.
+            Cuento con conocimientos de ciberseguridad a nivel medio (aseguramiento de endpoints, análisis de vulnerabilidades y configuración segura de CDN/Firewalls de Cloudflare). Diseño e implemento <strong>flujos seguros de autenticación</strong> y participó en <strong>Bug Bounty</strong>, buscando y reportando vulnerabilidades de forma responsable.
           </p>
         </div>
       </div>
